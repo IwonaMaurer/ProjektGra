@@ -68,9 +68,6 @@ function playerPick(playerPick) {
     checkRoundWinner(playerPick, computerPick);
 }
 
-var x = Math.random();
-Math.floor(Math.random()*3)
-
 
 function getComputerPick() {
     var possiblePicks = ['rock', 'paper', 'scissors'];
@@ -132,12 +129,15 @@ function showGameWinner() {
     gameState = 'ended';
     setGameElements();
     versusPlace.innerHTML = 'Player is Winner!';
+    alert('Player is Winner!');
   } else if (computer.score == 10) {
     gameState = 'ended';
     setGameElements();
     versusPlace.innerHTML = 'Computer is Winner!';
+    alert('Computer is Winner!');
   }
 }
+
 
 
 
