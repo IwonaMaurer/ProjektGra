@@ -54,13 +54,18 @@ function newGame() {
     setGameElements();
 
     playerNameElem.innerHTML = player.name;
-    setGamePoints(); // This function has not been created yet
+    setGamePoints(); 
   }
 
 }
 
 function playerPick(playerPick) {
-    console.log(playerPick);
+   var computerPick = getComputerPick();
+
+    playerPickElem.innerHTML = playerPick;
+    computerPickElem.innerHTML = computerPick;
+
+    checkRoundWinner(playerPick, computerPick);
 }
 
 var x = Math.random();
@@ -76,14 +81,7 @@ var playerPickElem = document.getElementById('js-playerPick'),
     computerPickElem = document.getElementById('js-computerPick'),
     playerResultElem = document.getElementById('js-playerResult'),
     computerResultElem = document.getElementById('js-computerResult');
-
-
-function playerPick(playerPick) {
-    var computerPick = getComputerPick();
-
-    playerPickElem.innerHTML = playerPick;
-    computerPickElem.innerHTML = computerPick;
-}
+    versusPlace = document.getElementById( 'js-versus' );
 
 
 function checkRoundWinner(playerPick, computerPick) {
@@ -93,34 +91,54 @@ function checkRoundWinner(playerPick, computerPick) {
 
     if (playerPick == computerPick) {
         winnerIs = 'noone'; // remis
+        setGamePoints();
+
     } else if (
         (computerPick == 'rock' &&  playerPick == 'scissors') ||
         (computerPick == 'scissors' &&  playerPick == 'paper') ||
         (computerPick == 'paper' &&  playerPick == 'rock')) {
 
         winnerIs = 'computer';
+
+        setGamePoints();
     }
 
     if (winnerIs == 'player') {
         playerResultElem.innerHTML = "Win!";
         player.score++;
+        setGamePoints();
+        showGameWinner();
     } else if (winnerIs == 'computer') {
         computerResultElem.innerHTML = "Win!";
         computer.score++;
+        setGamePoints();
+        showGameWinner();
     }
 
 }
 
-function playerPick(playerPick) {
-    var computerPick = getComputerPick();
 
-    playerPickElem.innerHTML = playerPick;
-    computerPickElem.innerHTML = computerPick;
-
-    checkRoundWinner(playerPick, computerPick);
-}
 
 function setGamePoints() {
     playerPointsElem.innerHTML = player.score;
     computerPointsElem.innerHTML = computer.score;
 }
+
+setGamePoints();
+
+
+function showGameWinner() {
+  if (player.score == 10) {
+    gameState = 'ended';
+    setGameElements();
+    versusPlace.innerHTML = 'Player is Winner!';
+  } else if (computer.score == 10) {
+    gameState = 'ended';
+    setGameElements();
+    versusPlace.innerHTML = 'Computer is Winner!';
+  }
+}
+
+
+
+
